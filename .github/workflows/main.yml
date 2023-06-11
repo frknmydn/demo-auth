@@ -23,7 +23,7 @@ jobs:
       
       - name: Run Security Audit
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
-        run: npm audit
+        run: npm audit --audit-level=low
       
 
       - name: Run Jest Tests (demo-auth)
