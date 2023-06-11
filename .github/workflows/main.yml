@@ -25,6 +25,7 @@ jobs:
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
         run: npm install jest supertest && npm run test
         
-      - name: Notify CI/CD completion
-        run: echo "CI/CD pipeline completed"
+      - name: Trigger Notification Step
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        run: echo "Jest tests completed"
         
