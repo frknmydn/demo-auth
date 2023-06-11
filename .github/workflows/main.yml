@@ -23,4 +23,5 @@ jobs:
 
       - name: Run Jest Tests (demo-auth)
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
-        run: npm run test
+        run: npm install jest supertest && npm run test
+        
