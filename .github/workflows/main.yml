@@ -27,5 +27,5 @@ jobs:
         
       - name: Trigger Notification Step
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
-        run: echo "Jest tests completed"
+        run: echo "Jest tests completed..."
         
