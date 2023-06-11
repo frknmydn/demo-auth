@@ -37,8 +37,8 @@ jobs:
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
         uses: sonarsource/sonarqube-scan-action@master
         env:
-          SONAR_TOKEN: sqp_bed16bd407f07dcbb42dc134180c5b27909dd525
-          SONAR_HOST_URL: 127.0.0.1:9000
+          SONAR_TOKEN: 2f34e2410bedd2def2b1ca7130101895b225aa20
+  
         
       - name: Trigger Notification Step
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
