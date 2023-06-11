@@ -37,6 +37,13 @@ jobs:
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
         run: npm install jest supertest && npm run test --watch=false 
         
+      - name: SonarQube Scan
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        
       - name: Trigger Notification Step
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
         run: echo "Jest tests completed..."
