@@ -1,26 +1,49 @@
-name: Build
+name: CI Pipeline
 
 on:
   push:
     branches:
       - main
 
-
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: sonarsource/sonarqube-scan-action@master
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: npm install
+      
+      - name: Fix Vulnerabilities
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        run: npm audit fix --force
+      
+      - name: Run Security Audit
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        run: npm audit --audit-level=low
+      
+      
+
+      
+
+      - name: Run Jest Tests (demo-auth)
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        run: npm install jest supertest && npm run test --watch=false 
+        
+      - name: SonarQube Scan
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        uses: sonarsource/sonarqube-scan-action@master
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      # If you wish to fail your job when the Quality Gate is red, uncomment the
-      # following lines. This would typically be used to fail a deployment.
-      # - uses: sonarsource/sonarqube-quality-gate-action@master
-      #   timeout-minutes: 5
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        
+      - name: Trigger Notification Step
+        if: ${{ github.repository == 'frknmydn/demo-auth' }}
+        run: echo "Jest tests completed..."
