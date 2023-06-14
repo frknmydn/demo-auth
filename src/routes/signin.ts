@@ -15,7 +15,7 @@ router.post('/api/users/signin',[
     body('password')
     .trim()
     .notEmpty()
-    .withMessage('you must supply a password')
+    .withMessage('you must supply a good password')
 
 ],
 validateRequest,
