@@ -42,3 +42,14 @@ jobs:
       - name: Trigger Notification Step
         if: ${{ github.repository == 'frknmydn/demo-auth' }}
         run: echo "Jest tests completed..."
+        
+        
+      - name: Build Docker image
+        run: docker build -t furkanmeydan/service-auth .
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.docker_username }} -p ${{ secrets.docker_password }}
+
+
+      - name: Push Docker image
+        run: docker push furkanmeydan/service-auth
