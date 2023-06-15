@@ -46,7 +46,7 @@ async (req: Request, res: Response) => {
         jwt: userJWT
     };
 
-    // JWT'yi Authorization başlığı altında gönder
+    
     res.status(200).send({
         user: existingUser,
         token: userJWT
